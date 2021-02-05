@@ -24,6 +24,7 @@
         <tr class="text-left font-bold">
           <th class="px-6 pt-6 pb-4">Title</th>
           <th class="px-6 pt-6 pb-4">Status</th>
+          <th class="px-6 pt-6 pb-4" colspan="3">Action</th>
         </tr>
         <tr
           v-for="menu in menus.data"
@@ -48,19 +49,7 @@
               />
             </inertia-link>
           </td>
-          <td class="border-t">
-            <inertia-link
-              class="px-6 py-4 flex items-center focus:text-indigo-500"
-              :href="route('menus.edit', menu.id)"
-            >
-              {{ menu.title }}
-              <icon
-                v-if="menu.deleted_at"
-                name="trash"
-                class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2"
-              />
-            </inertia-link>
-          </td>
+
           <td class="border-t">
             <inertia-link
               class="px-6 py-4 flex items-center"
@@ -72,12 +61,31 @@
           </td>
           <td class="border-t w-px">
             <inertia-link
-              class="px-4 flex items-center"
+              class="px-5 flex items-center"
               :href="route('menus.edit', menu.id)"
               tabindex="-1"
             >
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
+              <icon name="edit" class="block w-6 h-6 fill-gray-400" />
             </inertia-link>
+          </td>
+          <td class="border-t w-px">
+            <inertia-link
+              class="px-5 flex items-center"
+              :href="route('menus.edit', menu.id)"
+              tabindex="-1"
+            >
+              <icon name="view" class="block w-6 h-6 fill-gray-400" />
+            </inertia-link>
+          </td>
+          <td class="border-t w-px">
+            <a
+              class="px-5 flex items-center"
+              target="_blank"
+              :href="route('home.show', menu.slug)"
+              tabindex="-1"
+            >
+              <icon name="preview" class="block w-6 h-6 fill-gray-400" />
+            </a>
           </td>
         </tr>
         <tr v-if="menus.data.length === 0">

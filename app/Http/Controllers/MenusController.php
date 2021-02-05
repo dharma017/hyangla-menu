@@ -23,6 +23,7 @@ class MenusController extends Controller
                     return [
                         'id' => $menu->id,
                         'title' => $menu->title,
+                        'slug' => $menu->slug,
                         'description' => $menu->description,
                         'status' => $menu->status,
                         'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),

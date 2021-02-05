@@ -59,6 +59,7 @@ class HomeController extends Controller
             'menu' => [
                 'id' => $menu->id,
                 'title' => $menu->title,
+                'slug' => $menu->slug,
                 'description' => $menu->description,
                 'status' => $menu->status,
                 'image' => $menu->imageUrl([]),

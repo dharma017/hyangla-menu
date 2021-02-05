@@ -44,7 +44,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function isDemoUser()
     {
-        return $this->email === 'johndoe@example.com';
+        return $this->email === 'thapa.dharma017@gmail.com';
     }
 
     public function scopeOrderByName($query)
