@@ -1,43 +1,44 @@
 <template>
   <div>
     <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-    <select
+    <vue-editor
       :id="id"
       ref="input"
-      v-model="selected"
+      v-model="content"
       v-bind="$attrs"
-      class="form-select"
       :class="{ error: error }"
-    >
-      <slot />
-    </select>
+      :editor-toolbar="customToolbar"
+    />
     <div v-if="error" class="form-error">{{ error }}</div>
   </div>
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
+  components: { VueEditor },
   inheritAttrs: false,
   props: {
     id: {
       type: String,
       default() {
-        return `select-input-${this._uid}`;
+        return `text-editor-${this._uid}`;
       },
     },
-    value: [String, Number, Boolean],
+    value: String,
     label: String,
     error: String,
   },
   data() {
     return {
-      selected: this.value,
+      content: this.value,
+      customToolbar: [
+        ["bold", "italic", "underline"],
+        // [{ list: "ordered" }, { list: "bullet" }],
+        // ["image", "code-block"],
+      ],
     };
-  },
-  watch: {
-    selected(selected) {
-      this.$emit("input", selected);
-    },
   },
   methods: {
     focus() {

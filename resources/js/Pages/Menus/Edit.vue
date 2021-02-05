@@ -16,23 +16,29 @@
     </trashed-message>
     <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
       <form @submit.prevent="submit">
-        <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
+        <div class="p-6 grid gap-4 grid-cols-1 max-w-2xl">
           <text-input
             v-model="form.title"
             :error="errors.title"
-            class="pr-6 pb-8 w-full lg:w-1/2"
+            class="pr-6 pb-8 w-full lg:w"
             label="Title"
           />
-          <textarea-input
+          <!-- <text-editor
             v-model="form.description"
             :error="errors.description"
-            class="pr-6 pb-8 w-full lg:w-1/2"
+            class="pr-6 pb-8 w-full lg:w"
             label="Description"
+          /> -->
+          <vue-editor
+            class="pr-6 pb-8 w-full lg:w"
+            label="Description"
+            v-model="form.description"
+            :editor-toolbar="customToolbar"
           />
           <select-input
             v-model="form.status"
             :error="errors.status"
-            class="pr-6 pb-8 w-full lg:w-1/2"
+            class="pr-6 pb-8 w-full lg:w"
             label="Status"
           >
             <option :value="true">Active</option>
@@ -41,7 +47,7 @@
           <file-input
             v-model="form.image"
             :error="errors.image"
-            class="pr-6 pb-8 w-full lg:w-1/2"
+            class="pr-6 pb-8 w-full lg:w"
             type="file"
             accept="image/*"
             label="Image"
@@ -80,6 +86,7 @@ import TextInput from "@/Shared/TextInput";
 import FileInput from "@/Shared/FileInput";
 import TrashedMessage from "@/Shared/TrashedMessage";
 import TextareaInput from "@/Shared/TextareaInput.vue";
+import { VueEditor } from "vue2-editor";
 
 export default {
   metaInfo() {
@@ -95,6 +102,7 @@ export default {
     FileInput,
     TrashedMessage,
     TextareaInput,
+    VueEditor,
   },
   props: {
     errors: Object,
@@ -103,6 +111,11 @@ export default {
   remember: "form",
   data() {
     return {
+      customToolbar: [
+        ["bold", "italic", "underline"],
+        // [{ list: "ordered" }, { list: "bullet" }],
+        // ["image", "code-block"],
+      ],
       sending: false,
       form: {
         title: this.menu.title,
@@ -120,6 +133,12 @@ export default {
       data.append("status", this.form.status ? "1" : "0");
       data.append("image", this.form.image || "");
       data.append("_method", "put");
+
+      console.log(
+        "🚀 ~ file: Edit.vue ~ line 133 ~ submit ~ data",
+        this.form.description
+      );
+      // return;
 
       this.$inertia.post(this.route("menus.update", this.menu.id), data, {
         onStart: () => (this.sending = true),

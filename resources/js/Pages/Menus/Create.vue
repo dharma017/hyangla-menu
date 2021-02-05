@@ -10,19 +10,27 @@
     </h1>
     <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
       <form @submit.prevent="submit">
-        <div class="p-6 -mr-6 -mb-8 flex flex-wrap">
+        <div class="p-6 grid gap-4 grid-cols-1">
           <text-input
             v-model="form.title"
             :error="errors.title"
             class="pr-6 pb-8 w-full lg:w-1/2"
             label="Title"
           />
-          <textarea-input
+
+          <!-- <text-editor
             v-model="form.description"
             :error="errors.description"
             class="pr-6 pb-8 w-full lg:w-1/2"
             label="Description"
+          /> -->
+          <vue-editor
+            class="pr-6 pb-8 w-full lg:w"
+            label="Description"
+            v-model="form.description"
+            :editor-toolbar="customToolbar"
           />
+
           <select-input
             v-model="form.status"
             :error="errors.status"
@@ -32,6 +40,7 @@
             <option :value="true">Active</option>
             <option :value="false">Inactive</option>
           </select-input>
+
           <file-input
             v-model="form.image"
             :error="errors.image"
@@ -60,6 +69,7 @@ import SelectInput from "@/Shared/SelectInput";
 import TextInput from "@/Shared/TextInput";
 import TextareaInput from "@/Shared/TextareaInput.vue";
 import FileInput from "@/Shared/FileInput";
+import { VueEditor } from "vue2-editor";
 
 export default {
   metaInfo: { title: "Create Menu" },
@@ -70,6 +80,7 @@ export default {
     TextInput,
     TextareaInput,
     FileInput,
+    VueEditor,
   },
   props: {
     errors: Object,
@@ -78,6 +89,12 @@ export default {
   remember: "form",
   data() {
     return {
+      content: this.value,
+      customToolbar: [
+        ["bold", "italic", "underline"],
+        // [{ list: "ordered" }, { list: "bullet" }],
+        // ["image", "code-block"],
+      ],
       sending: false,
       form: {
         title: null,

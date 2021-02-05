@@ -69,13 +69,22 @@
             </inertia-link>
           </td>
           <td class="border-t w-px">
-            <inertia-link
+            <!-- <inertia-link
               class="px-5 flex items-center"
               :href="route('menus.edit', menu.id)"
               tabindex="-1"
             >
               <icon name="view" class="block w-6 h-6 fill-gray-400" />
-            </inertia-link>
+            </inertia-link> -->
+            <!-- <icon name="view" class="block w-6 h-6 fill-gray-400" /> -->
+            <show-menu-modal
+              :show="showModal(menu.id)"
+              :description="menu.description"
+              @close="toggleModal(menu.id)"
+            />
+            <a class="text-sm" href="#" @click.stop="toggleModal(menu.id)">
+              <icon name="view" class="block w-6 h-6 fill-gray-400" />
+            </a>
           </td>
           <td class="border-t w-px">
             <a
@@ -84,7 +93,7 @@
               :href="route('home.show', menu.slug)"
               tabindex="-1"
             >
-              <icon name="preview" class="block w-6 h-6 fill-gray-400" />
+              <icon name="tab" class="block w-6 h-6 fill-gray-400" />
             </a>
           </td>
         </tr>
@@ -105,6 +114,7 @@ import Pagination from "@/Shared/Pagination";
 import pickBy from "lodash/pickBy";
 import SearchFilter from "@/Shared/SearchFilter";
 import throttle from "lodash/throttle";
+import ShowMenuModal from "./ShowMenuModal.vue";
 
 export default {
   metaInfo: { title: "Menus" },
@@ -113,6 +123,7 @@ export default {
     Icon,
     Pagination,
     SearchFilter,
+    ShowMenuModal,
   },
   props: {
     menus: Object,
@@ -124,6 +135,7 @@ export default {
         search: this.filters.search,
         trashed: this.filters.trashed,
       },
+      activeModal: 0,
     };
   },
   watch: {
@@ -143,6 +155,16 @@ export default {
   methods: {
     reset() {
       this.form = mapValues(this.form, () => null);
+    },
+    showModal: function (id) {
+      return this.activeModal === id;
+    },
+    toggleModal: function (id) {
+      if (this.activeModal !== 0) {
+        this.activeModal = 0;
+        return false;
+      }
+      this.activeModal = id;
     },
   },
 };
