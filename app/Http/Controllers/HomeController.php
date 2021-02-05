@@ -63,6 +63,7 @@ class HomeController extends Controller
                 'description' => $menu->description,
                 'status' => $menu->status,
                 'image' => $menu->imageUrl([]),
+                'local_ads' => $menu->marketingImageUrl([]),
                 'deleted_at' => $menu->deleted_at,
             ]
         ]);   

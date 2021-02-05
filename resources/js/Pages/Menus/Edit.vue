@@ -50,9 +50,18 @@
             class="pr-6 pb-8 w-full lg:w"
             type="file"
             accept="image/*"
-            label="Image"
+            label="Menu Image"
           />
           <img v-if="menu.image" class="block" :src="menu.image" />
+          <file-input
+            v-model="form.local_ads"
+            :error="errors.local_ads"
+            class="pr-6 pb-8 w-full lg:w"
+            type="file"
+            accept="image/*"
+            label="Marketing Image"
+          />
+          <img v-if="menu.local_ads" class="block" :src="menu.local_ads" />
         </div>
         <div
           class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center"
@@ -122,6 +131,7 @@ export default {
         description: this.menu.description,
         status: this.menu.status,
         image: null,
+        local_ads: null,
       },
     };
   },
@@ -132,6 +142,7 @@ export default {
       data.append("description", this.form.description || "");
       data.append("status", this.form.status ? "1" : "0");
       data.append("image", this.form.image || "");
+      data.append("local_ads", this.form.local_ads || "");
       data.append("_method", "put");
 
       console.log(
@@ -146,6 +157,7 @@ export default {
         onSuccess: () => {
           if (Object.keys(this.$page.errors).length === 0) {
             this.form.image = null;
+            this.form.local_ads = null;
           }
         },
       });

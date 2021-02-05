@@ -27,6 +27,7 @@ class MenusController extends Controller
                         'description' => $menu->description,
                         'status' => $menu->status,
                         'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                        'local_ads' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                         'deleted_at' => $menu->deleted_at,
                     ];
                 }),
@@ -44,6 +45,7 @@ class MenusController extends Controller
             'title' => ['required', 'max:100'],
             'description' => ['required'],
             'image' => ['nullable', 'image'],
+            'local_ads' => ['nullable', 'image'],
         ]);
 
         $menuSlug = new MenuSlug;
@@ -55,6 +57,7 @@ class MenusController extends Controller
             'description' => Request::get('description'),
             'status' => Request::get('status') ? true : false,
             'image' => Request::file('image') ? Request::file('image')->store('menus') : null,
+            'local_ads' => Request::file('local_ads') ? Request::file('local_ads')->store('menus') : null,
         ]);
 
         return Redirect::route('menus')->with('success', 'Menu created.');
@@ -69,6 +72,7 @@ class MenusController extends Controller
                 'description' => $menu->description,
                 'status' => $menu->status,
                 'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                'local_ads' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                 'deleted_at' => $menu->deleted_at,
             ],
         ]);
@@ -81,12 +85,17 @@ class MenusController extends Controller
             'description' => ['required'],
             'status' => ['required', 'boolean'],
             'image' => ['nullable', 'image'],
+            'local_ads' => ['nullable', 'image'],
         ]);
 
         $menu->update(Request::only('title', 'description', 'status'));
 
         if (Request::file('image')) {
             $menu->update(['image' => Request::file('image')->store('menus')]);
+        }
+
+        if (Request::file('local_ads')) {
+            $menu->update(['local_ads' => Request::file('local_ads')->store('menus')]);
         }
 
         return Redirect::back()->with('success', 'Menu updated.');

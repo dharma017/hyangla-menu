@@ -28,6 +28,13 @@ class Menu extends Model
         }
     }
 
+    public function marketingImageUrl(array $attributes)
+    {
+        if ($this->local_ads) {
+            return URL::to(App::make(Server::class)->fromPath($this->local_ads, $attributes));
+        }
+    }
+
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {

@@ -47,7 +47,15 @@
             class="pr-6 pb-8 w-full lg:w-1/2"
             type="file"
             accept="image/*"
-            label="Image"
+            label="Menu Image"
+          />
+          <file-input
+            v-model="form.local_ads"
+            :error="errors.local_ads"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            type="file"
+            accept="image/*"
+            label="Marketing Image"
           />
         </div>
         <div
@@ -101,6 +109,7 @@ export default {
         description: null,
         status: false,
         image: null,
+        local_ads: null,
       },
     };
   },
@@ -111,6 +120,7 @@ export default {
       data.append("description", this.form.description || "");
       data.append("status", this.form.status ? "1" : "0");
       data.append("image", this.form.image || "");
+      data.append("local_ads", this.form.local_ads || "");
 
       this.$inertia.post(this.route("menus.store"), data, {
         onStart: () => (this.sending = true),
