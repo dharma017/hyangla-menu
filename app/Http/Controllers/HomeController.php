@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Organization;
 use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -16,12 +17,16 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $menu = Menu::where('status', 1)->first();
-        dd($menu);exit;
-        
+        $organization = Organization::where('id', 1)->first();
         return Inertia::render('Home/Index', [
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION .'a1',
+            'organization' => [
+                'id' => $organization->id,
+                'name' => $organization->name,
+                'image' => $organization->imageUrl([]),
+                'marketing_image' => $organization->marketingImageUrl([]),
+                'enable_marketing' => $organization->enable_marketing,
+                'deleted_at' => $organization->deleted_at,
+            ]
         ]);   
     }
 
@@ -53,9 +58,10 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
-    {
-        $menu = Menu::where('slug', $slug)->first();
-        return Inertia::render('Home/Index', [
+    {   
+        $menu = Menu::where('slug', $slug)->where('status', 1)->firstOrFail();
+        $organization = Organization::where('id', 1)->first();
+        return Inertia::render('Home/Show', [
             'menu' => [
                 'id' => $menu->id,
                 'title' => $menu->title,
@@ -66,8 +72,16 @@ class HomeController extends Controller
                 'image' => $menu->imageUrl([]),
                 'marketing_image' => $menu->marketingImageUrl([]),
                 'deleted_at' => $menu->deleted_at,
+            ],
+            'organization' => [
+                'id' => $organization->id,
+                'name' => $organization->name,
+                'marketing_image' => $organization->marketingImageUrl([]),
+                'enable_marketing' => $organization->enable_marketing,
+                'deleted_at' => $organization->deleted_at,
             ]
-        ]);   
+        ]);  
+        
     }
 
     /**

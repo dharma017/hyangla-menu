@@ -108,13 +108,13 @@ class MenusController extends Controller
     {
         $menu->delete();
 
-        return Redirect::route('menus')->with('success', 'Menu deleted.');
+        return Redirect::back()->with('success', 'Menu deleted.');
     }
 
     public function restore(Menu $menu)
     {
         $menu->restore();
 
-        return Redirect::route('menus')->with('success', 'Menu restored.');
+        return Redirect::back()->with('success', 'Menu restored.');
     }
 }

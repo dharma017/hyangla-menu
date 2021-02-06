@@ -166,8 +166,15 @@ Route::delete('menus/{menu}', [MenusController::class, 'destroy'])
     ->name('menus.destroy')
     ->middleware('auth');
 
+Route::put('menus/{menu}/restore', [MenusController::class, 'restore'])
+->name('menus.restore')
+->middleware('auth');
+
 
 // Homepage
+
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home.index');
 
 Route::get('rmenu/{slug}', [HomeController::class, 'show'])
     ->name('home.show');

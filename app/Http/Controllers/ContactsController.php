@@ -69,6 +69,7 @@ class ContactsController extends Controller
 
     public function edit(Contact $contact)
     {
+        // dd($contact);
         return Inertia::render('Contacts/Edit', [
             'contact' => [
                 'id' => $contact->id,

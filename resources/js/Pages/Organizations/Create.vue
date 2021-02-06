@@ -63,6 +63,14 @@
             label="Postal code"
           />
           <file-input
+            v-model="form.image"
+            :error="errors.image"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            type="file"
+            accept="image/*"
+            label="Image"
+          />
+          <file-input
             v-model="form.marketing_image"
             :error="errors.marketing_image"
             class="pr-6 pb-8 w-full lg:w-1/2"
@@ -125,6 +133,7 @@ export default {
         country: null,
         postal_code: null,
         enable_marketing: false,
+        image: null,
         marketing_image: null,
       },
     };
@@ -140,6 +149,7 @@ export default {
       data.append("region", this.form.region || "");
       data.append("country", this.form.country || "");
       data.append("postal_code", this.form.postal_code || "");
+      data.append("image", this.form.image || "");
       data.append("marketing_image", this.form.marketing_image || "");
       data.append("enable_marketing", this.form.enable_marketing ? "1" : "0");
 

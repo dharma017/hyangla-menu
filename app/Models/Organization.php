@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -18,11 +17,18 @@ class Organization extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'email', 'phone', 'address' , 'city', 'region', 'country', 'postal_code', 'marketing_image', 'enable_marketing'];
+    protected $fillable = ['name', 'email', 'phone', 'address' , 'city', 'region', 'country', 'postal_code', 'image', 'marketing_image', 'enable_marketing'];
 
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+
+    public function imageUrl(array $attributes)
+    {
+        if ($this->image) {
+            return URL::to(App::make(Server::class)->fromPath($this->image, $attributes));
+        }
     }
 
     public function marketingImageUrl(array $attributes)

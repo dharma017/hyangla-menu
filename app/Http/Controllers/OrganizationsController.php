@@ -29,6 +29,7 @@ class OrganizationsController extends Controller
                         'region' => $organization->region,
                         'country' => $organization->country,
                         'postal_code' => $organization->postal_code,
+                        'image' => $organization->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                         'marketing_image' => $organization->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                         'enable_marketing' => $organization->enable_marketing,
                         'deleted_at' => $organization->deleted_at,
@@ -54,6 +55,7 @@ class OrganizationsController extends Controller
                 'region' => ['nullable', 'max:50'],
                 'country' => ['nullable', 'max:2'],
                 'postal_code' => ['nullable', 'max:25'],
+                'image' => ['nullable', 'image'],
                 'marketing_image' => ['nullable', 'image'],
         ]);
 
@@ -66,6 +68,7 @@ class OrganizationsController extends Controller
             'region' => Request::get('region'),
             'country' => Request::get('country'),
             'postal_code' => Request::get('postal_code'),
+            'image' => Request::file('image') ? Request::file('image')->store('organizations') : null,
             'marketing_image' => Request::file('marketing_image') ? Request::file('marketing_image')->store('organizations') : null,
             'enable_marketing' => Request::get('enable_marketing') ? true : false,
         ]);
@@ -75,6 +78,7 @@ class OrganizationsController extends Controller
 
     public function edit(Organization $organization)
     {
+        // dd($organization);
         return Inertia::render('Organizations/Edit', [
             'organization' => [
                 'id' => $organization->id,
@@ -86,6 +90,7 @@ class OrganizationsController extends Controller
                 'region' => $organization->region,
                 'country' => $organization->country,
                 'postal_code' => $organization->postal_code,
+                'image' => $organization->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                 'marketing_image' => $organization->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                 'enable_marketing' => $organization->enable_marketing,
                 'deleted_at' => $organization->deleted_at,
@@ -105,11 +110,16 @@ class OrganizationsController extends Controller
             'region' => ['nullable', 'max:50'],
             'country' => ['nullable', 'max:2'],
             'postal_code' => ['nullable', 'max:25'],
+            'image' => ['nullable', 'image'],
             'marketing_image' => ['nullable', 'image'],
             'enable_marketing' => ['required', 'boolean'],
         ]);
 
         $organization->update(Request::only('name', 'email', 'phone', 'address' , 'city', 'region', 'country', 'postal_code', 'enable_marketing'));
+
+        if (Request::file('image')) {
+            $organization->update(['image' => Request::file('image')->store('organizations')]);
+        }
 
         if (Request::file('marketing_image')) {
             $organization->update(['marketing_image' => Request::file('marketing_image')->store('organizations')]);

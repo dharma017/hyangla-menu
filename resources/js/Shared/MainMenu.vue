@@ -93,7 +93,7 @@
         </div>
       </inertia-link>
     </div>
-    <div class="mb-4">
+    <!-- <div class="mb-4">
       <inertia-link
         class="flex items-center group py-3"
         :href="route('reports')"
@@ -117,7 +117,7 @@
           Reports
         </div>
       </inertia-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
