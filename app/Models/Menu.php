@@ -15,11 +15,12 @@ class Menu extends Model
 
     protected $casts = [
         'status' => 'boolean',
+        'enable_marketing' => 'boolean',
     ];
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['title', 'slug','image','marketing_image','description', 'enable_marketing', 'status'];
+    protected $fillable = ['title', 'slug','image', 'marketing_image', 'enable_marketing', 'description', 'status'];
 
     public function imageUrl(array $attributes)
     {

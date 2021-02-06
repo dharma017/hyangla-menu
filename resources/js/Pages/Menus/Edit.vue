@@ -16,7 +16,7 @@
     </trashed-message>
     <div class="bg-white rounded shadow overflow-hidden max-w-3xl">
       <form @submit.prevent="submit">
-        <div class="p-6 grid gap-4 grid-cols-1 max-w-2xl">
+        <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
           <text-input
             v-model="form.title"
             :error="errors.title"
@@ -26,54 +26,58 @@
           <!-- <text-editor
             v-model="form.description"
             :error="errors.description"
-            class="pr-6 pb-8 w-full lg:w"
+            class="pr-6 pb-8 w-full lg:w-1/2"
             label="Description"
           /> -->
           <vue-editor
-            class="pr-6 pb-8 w-full lg:w"
+            class="pr-6 pb-8 h-full w-full lg:w"
             label="Description"
             v-model="form.description"
             :editor-toolbar="customToolbar"
           />
-          <select-input
-            v-model="form.status"
-            :error="errors.status"
-            class="pr-6 pb-8 w-full lg:w"
-            label="Publish"
-          >
-            <option :value="true">Active</option>
-            <option :value="false">Inactive</option>
-          </select-input>
           <file-input
             v-model="form.image"
             :error="errors.image"
-            class="pr-6 pb-8 w-full lg:w"
+            class="pr-6 pb-8 w-full lg:w-1/2"
             type="file"
             accept="image/*"
             label="Menu Image"
           />
-          <img v-if="menu.image" class="block" :src="menu.image" />
+          <img
+            v-if="menu.image"
+            class="pr-6 pb-8 w-full lg:w-1/6"
+            :src="menu.image"
+          />
           <file-input
             v-model="form.marketing_image"
             :error="errors.marketing_image"
-            class="pr-6 pb-8 w-full lg:w"
+            class="pr-6 pb-8 w-full lg:w-1/2"
             type="file"
             accept="image/*"
             label="Marketing Image"
           />
           <img
             v-if="menu.marketing_image"
-            class="block"
+            class="pr-6 pb-8 w-full lg:w-1/6"
             :src="menu.marketing_image"
           />
           <select-input
             v-model="form.enable_marketing"
             :error="errors.enable_marketing"
-            class="pr-6 pb-8 w-full lg:w"
+            class="pr-6 pb-8 w-full lg:w-1/2"
             label="Enable Marketing"
           >
             <option :value="true">Yes</option>
             <option :value="false">No</option>
+          </select-input>
+          <select-input
+            v-model="form.status"
+            :error="errors.status"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            label="Publish"
+          >
+            <option :value="true">Active</option>
+            <option :value="false">Inactive</option>
           </select-input>
         </div>
         <div
@@ -144,8 +148,8 @@ export default {
         description: this.menu.description,
         status: this.menu.status,
         image: null,
-        enable_marketing: this.menu.enable_marketing,
         marketing_image: null,
+        enable_marketing: this.menu.enable_marketing,
       },
     };
   },
@@ -155,16 +159,10 @@ export default {
       data.append("title", this.form.title || "");
       data.append("description", this.form.description || "");
       data.append("status", this.form.status ? "1" : "0");
-      data.append("enable_marketing", this.form.enable_marketing ? "1" : "0");
       data.append("image", this.form.image || "");
       data.append("marketing_image", this.form.marketing_image || "");
+      data.append("enable_marketing", this.form.enable_marketing ? "1" : "0");
       data.append("_method", "put");
-
-      console.log(
-        "🚀 ~ file: Edit.vue ~ line 133 ~ submit ~ data",
-        this.form.description
-      );
-      // return;
 
       this.$inertia.post(this.route("menus.update", this.menu.id), data, {
         onStart: () => (this.sending = true),

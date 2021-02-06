@@ -62,6 +62,23 @@
             class="pr-6 pb-8 w-full lg:w-1/2"
             label="Postal code"
           />
+          <file-input
+            v-model="form.marketing_image"
+            :error="errors.marketing_image"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            type="file"
+            accept="image/*"
+            label="Marketing Image"
+          />
+          <select-input
+            v-model="form.enable_marketing"
+            :error="errors.enable_marketing"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            label="Enable Marketing"
+          >
+            <option :value="true">Yes</option>
+            <option :value="false">No</option>
+          </select-input>
         </div>
         <div
           class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center"
@@ -80,6 +97,7 @@ import Layout from "@/Shared/Layout";
 import LoadingButton from "@/Shared/LoadingButton";
 import SelectInput from "@/Shared/SelectInput";
 import TextInput from "@/Shared/TextInput";
+import FileInput from "@/Shared/FileInput";
 
 export default {
   metaInfo: { title: "Create Organization" },
@@ -88,6 +106,7 @@ export default {
     LoadingButton,
     SelectInput,
     TextInput,
+    FileInput,
   },
   props: {
     errors: Object,
@@ -105,12 +124,26 @@ export default {
         region: null,
         country: null,
         postal_code: null,
+        enable_marketing: false,
+        marketing_image: null,
       },
     };
   },
   methods: {
     submit() {
-      this.$inertia.post(this.route("organizations.store"), this.form, {
+      const data = new FormData();
+      data.append("name", this.form.name || "");
+      data.append("email", this.form.email || "");
+      data.append("phone", this.form.phone || "");
+      data.append("address", this.form.address || "");
+      data.append("city", this.form.city || "");
+      data.append("region", this.form.region || "");
+      data.append("country", this.form.country || "");
+      data.append("postal_code", this.form.postal_code || "");
+      data.append("marketing_image", this.form.marketing_image || "");
+      data.append("enable_marketing", this.form.enable_marketing ? "1" : "0");
+
+      this.$inertia.post(this.route("organizations.store"), data, {
         onStart: () => (this.sending = true),
         onFinish: () => (this.sending = false),
       });

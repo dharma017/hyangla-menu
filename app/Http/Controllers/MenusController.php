@@ -56,9 +56,9 @@ class MenusController extends Controller
             'slug' => $slug,
             'description' => Request::get('description'),
             'status' => Request::get('status') ? true : false,
-            'enable_marketing' => Request::get('enable_marketing') ? true : false,
             'image' => Request::file('image') ? Request::file('image')->store('menus') : null,
             'marketing_image' => Request::file('marketing_image') ? Request::file('marketing_image')->store('menus') : null,
+            'enable_marketing' => Request::get('enable_marketing') ? true : false,
         ]);
 
         return Redirect::route('menus')->with('success', 'Menu created.');
@@ -72,9 +72,9 @@ class MenusController extends Controller
                 'title' => $menu->title,
                 'description' => $menu->description,
                 'status' => $menu->status,
-                'enable_marketing' => $menu->enable_marketing,
                 'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                 'marketing_image' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                'enable_marketing' => $menu->enable_marketing,
                 'deleted_at' => $menu->deleted_at,
             ],
         ]);
@@ -86,9 +86,9 @@ class MenusController extends Controller
             'title' => ['required', 'max:100'],
             'description' => ['required'],
             'status' => ['required', 'boolean'],
-            'enable_marketing' => ['required', 'boolean'],
             'image' => ['nullable', 'image'],
             'marketing_image' => ['nullable', 'image'],
+            'enable_marketing' => ['required', 'boolean'],
         ]);
 
         $menu->update(Request::only('title', 'description', 'status', 'enable_marketing'));

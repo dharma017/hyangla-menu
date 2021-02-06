@@ -18,7 +18,22 @@ class OrganizationsController extends Controller
                 ->orderBy('name')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
-                ->only('id', 'name', 'phone', 'city', 'deleted_at'),
+                ->transform(function ($organization) {
+                    return [
+                        'id' => $organization->id,
+                        'name' => $organization->name,
+                        'email' => $organization->email,
+                        'phone' => $organization->phone,
+                        'address' => $organization->address,
+                        'city' => $organization->city,
+                        'region' => $organization->region,
+                        'country' => $organization->country,
+                        'postal_code' => $organization->postal_code,
+                        'marketing_image' => $organization->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                        'enable_marketing' => $organization->enable_marketing,
+                        'deleted_at' => $organization->deleted_at,
+                    ];
+                }),
         ]);
     }
 
@@ -29,9 +44,9 @@ class OrganizationsController extends Controller
 
     public function store()
     {
-        Auth::user()->account->organizations()->create(
-            Request::validate([
-                'name' => ['required', 'max:100'],
+        Request::validate([
+            'name' => ['required', 'max:100'],
+                'name' => ['nullable', 'max:50'],
                 'email' => ['nullable', 'max:50', 'email'],
                 'phone' => ['nullable', 'max:50'],
                 'address' => ['nullable', 'max:150'],
@@ -39,8 +54,21 @@ class OrganizationsController extends Controller
                 'region' => ['nullable', 'max:50'],
                 'country' => ['nullable', 'max:2'],
                 'postal_code' => ['nullable', 'max:25'],
-            ])
-        );
+                'marketing_image' => ['nullable', 'image'],
+        ]);
+
+        Auth::user()->account->organizations()->create([
+            'name' => Request::get('name'),
+            'email' => Request::get('email'),
+            'phone' => Request::get('phone'),
+            'address' => Request::get('address'),
+            'city' => Request::get('city'),
+            'region' => Request::get('region'),
+            'country' => Request::get('country'),
+            'postal_code' => Request::get('postal_code'),
+            'marketing_image' => Request::file('marketing_image') ? Request::file('marketing_image')->store('organizations') : null,
+            'enable_marketing' => Request::get('enable_marketing') ? true : false,
+        ]);
 
         return Redirect::route('organizations')->with('success', 'Organization created.');
     }
@@ -58,6 +86,8 @@ class OrganizationsController extends Controller
                 'region' => $organization->region,
                 'country' => $organization->country,
                 'postal_code' => $organization->postal_code,
+                'marketing_image' => $organization->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                'enable_marketing' => $organization->enable_marketing,
                 'deleted_at' => $organization->deleted_at,
                 'contacts' => $organization->contacts()->orderByName()->get()->map->only('id', 'name', 'city', 'phone'),
             ],
@@ -66,18 +96,24 @@ class OrganizationsController extends Controller
 
     public function update(Organization $organization)
     {
-        $organization->update(
-            Request::validate([
-                'name' => ['required', 'max:100'],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
-            ])
-        );
+        Request::validate([
+            'name' => ['required', 'max:100'],
+            'email' => ['nullable', 'max:50', 'email'],
+            'phone' => ['nullable', 'max:50'],
+            'address' => ['nullable', 'max:150'],
+            'city' => ['nullable', 'max:50'],
+            'region' => ['nullable', 'max:50'],
+            'country' => ['nullable', 'max:2'],
+            'postal_code' => ['nullable', 'max:25'],
+            'marketing_image' => ['nullable', 'image'],
+            'enable_marketing' => ['required', 'boolean'],
+        ]);
+
+        $organization->update(Request::only('name', 'email', 'phone', 'address' , 'city', 'region', 'country', 'postal_code', 'enable_marketing'));
+
+        if (Request::file('marketing_image')) {
+            $organization->update(['marketing_image' => Request::file('marketing_image')->store('organizations')]);
+        }
 
         return Redirect::back()->with('success', 'Organization updated.');
     }

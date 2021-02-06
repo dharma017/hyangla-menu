@@ -70,6 +70,29 @@
             class="pr-6 pb-8 w-full lg:w-1/2"
             label="Postal code"
           />
+          <file-input
+            v-model="form.marketing_image"
+            :error="errors.marketing_image"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            type="file"
+            accept="image/*"
+            label="Marketing Image"
+          />
+          <select-input
+            v-model="form.enable_marketing"
+            :error="errors.enable_marketing"
+            class="pr-6 pb-8 w-full lg:w-1/2"
+            label="Enable Marketing"
+          >
+            <option :value="true">Yes</option>
+            <option :value="false">No</option>
+          </select-input>
+
+          <img
+            v-if="organization.marketing_image"
+            class="pb-5"
+            :src="organization.marketing_image"
+          />
         </div>
         <div
           class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center"
@@ -161,6 +184,7 @@ import LoadingButton from "@/Shared/LoadingButton";
 import SelectInput from "@/Shared/SelectInput";
 import TextInput from "@/Shared/TextInput";
 import TrashedMessage from "@/Shared/TrashedMessage";
+import FileInput from "@/Shared/FileInput";
 
 export default {
   metaInfo() {
@@ -173,6 +197,7 @@ export default {
     SelectInput,
     TextInput,
     TrashedMessage,
+    FileInput,
   },
   props: {
     errors: Object,
@@ -191,17 +216,43 @@ export default {
         region: this.organization.region,
         country: this.organization.country,
         postal_code: this.organization.postal_code,
+        marketing_image: null,
+        enable_marketing: this.organization.enable_marketing,
       },
     };
   },
+  created() {
+    console.log(
+      "🚀 ~ file: Edit.vue ~ line 221 ~ data ~ this.organization",
+      this.organization.marketing_image
+    );
+  },
   methods: {
     submit() {
-      this.$inertia.put(
+      const data = new FormData();
+      data.append("name", this.form.name || "");
+      data.append("email", this.form.email || "");
+      data.append("phone", this.form.phone || "");
+      data.append("address", this.form.address || "");
+      data.append("city", this.form.city || "");
+      data.append("region", this.form.region || "");
+      data.append("country", this.form.country || "");
+      data.append("postal_code", this.form.postal_code || "");
+      data.append("marketing_image", this.form.marketing_image || "");
+      data.append("enable_marketing", this.form.enable_marketing ? "1" : "0");
+      data.append("_method", "put");
+
+      this.$inertia.post(
         this.route("organizations.update", this.organization.id),
-        this.form,
+        data,
         {
           onStart: () => (this.sending = true),
           onFinish: () => (this.sending = false),
+          onSuccess: () => {
+            if (Object.keys(this.$page.errors).length === 0) {
+              this.form.marketing_image = null;
+            }
+          },
         }
       );
     },
