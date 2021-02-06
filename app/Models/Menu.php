@@ -19,7 +19,7 @@ class Menu extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['title', 'slug','image','local_ads','global_ads','description','status'];
+    protected $fillable = ['title', 'slug','image','marketing_image','description', 'enable_marketing', 'status'];
 
     public function imageUrl(array $attributes)
     {
@@ -30,8 +30,8 @@ class Menu extends Model
 
     public function marketingImageUrl(array $attributes)
     {
-        if ($this->local_ads) {
-            return URL::to(App::make(Server::class)->fromPath($this->local_ads, $attributes));
+        if ($this->marketing_image) {
+            return URL::to(App::make(Server::class)->fromPath($this->marketing_image, $attributes));
         }
     }
 

@@ -10,12 +10,12 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $account = Account::create(['name' => 'Acme Corporation']);
+        $account = Account::create(['name' => 'Hyangla Inc']);
 
         factory(User::class)->create([
             'account_id' => $account->id,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
+            'first_name' => 'Dharma',
+            'last_name' => 'Thapa',
             'email' => 'thapa.dharma017@gmail.com',
             'owner' => true,
         ]);

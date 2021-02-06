@@ -2,7 +2,7 @@
   <div>
     <show-marketing-modal
       :show="showModal(menu.id)"
-      :image="menu.local_ads"
+      :image="menu.marketing_image"
       @close="toggleModal(menu.id)"
     />
     <img class="object-contain w-full" v-if="menu.image" :src="menu.image" />
@@ -26,8 +26,9 @@ export default {
     };
   },
   created() {
-    console.log("Component has been created!");
-    this.toggleModal(this.menu.id);
+    if (this.menu.enable_marketing) {
+      this.toggleModal(this.menu.id);
+    }
   },
   destroyed() {
     console.log("Component has been destroyed!");

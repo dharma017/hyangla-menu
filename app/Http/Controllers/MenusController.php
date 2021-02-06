@@ -27,7 +27,7 @@ class MenusController extends Controller
                         'description' => $menu->description,
                         'status' => $menu->status,
                         'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
-                        'local_ads' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                        'marketing_image' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                         'deleted_at' => $menu->deleted_at,
                     ];
                 }),
@@ -45,7 +45,7 @@ class MenusController extends Controller
             'title' => ['required', 'max:100'],
             'description' => ['required'],
             'image' => ['nullable', 'image'],
-            'local_ads' => ['nullable', 'image'],
+            'marketing_image' => ['nullable', 'image'],
         ]);
 
         $menuSlug = new MenuSlug;
@@ -56,8 +56,9 @@ class MenusController extends Controller
             'slug' => $slug,
             'description' => Request::get('description'),
             'status' => Request::get('status') ? true : false,
+            'enable_marketing' => Request::get('enable_marketing') ? true : false,
             'image' => Request::file('image') ? Request::file('image')->store('menus') : null,
-            'local_ads' => Request::file('local_ads') ? Request::file('local_ads')->store('menus') : null,
+            'marketing_image' => Request::file('marketing_image') ? Request::file('marketing_image')->store('menus') : null,
         ]);
 
         return Redirect::route('menus')->with('success', 'Menu created.');
@@ -71,8 +72,9 @@ class MenusController extends Controller
                 'title' => $menu->title,
                 'description' => $menu->description,
                 'status' => $menu->status,
+                'enable_marketing' => $menu->enable_marketing,
                 'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
-                'local_ads' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                'marketing_image' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
                 'deleted_at' => $menu->deleted_at,
             ],
         ]);
@@ -84,18 +86,19 @@ class MenusController extends Controller
             'title' => ['required', 'max:100'],
             'description' => ['required'],
             'status' => ['required', 'boolean'],
+            'enable_marketing' => ['required', 'boolean'],
             'image' => ['nullable', 'image'],
-            'local_ads' => ['nullable', 'image'],
+            'marketing_image' => ['nullable', 'image'],
         ]);
 
-        $menu->update(Request::only('title', 'description', 'status'));
+        $menu->update(Request::only('title', 'description', 'status', 'enable_marketing'));
 
         if (Request::file('image')) {
             $menu->update(['image' => Request::file('image')->store('menus')]);
         }
 
-        if (Request::file('local_ads')) {
-            $menu->update(['local_ads' => Request::file('local_ads')->store('menus')]);
+        if (Request::file('marketing_image')) {
+            $menu->update(['marketing_image' => Request::file('marketing_image')->store('menus')]);
         }
 
         return Redirect::back()->with('success', 'Menu updated.');
@@ -105,13 +108,13 @@ class MenusController extends Controller
     {
         $menu->delete();
 
-        return Redirect::back()->with('success', 'Menu deleted.');
+        return Redirect::route('menus')->with('success', 'Menu deleted.');
     }
 
     public function restore(Menu $menu)
     {
         $menu->restore();
 
-        return Redirect::back()->with('success', 'Menu restored.');
+        return Redirect::route('menus')->with('success', 'Menu restored.');
     }
 }

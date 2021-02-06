@@ -19,8 +19,8 @@ class CreateMenusTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('image', 100)->nullable();
-            $table->string('local_ads', 100)->nullable();
-            $table->string('global_ads', 100)->nullable();
+            $table->string('marketing_image', 100)->nullable();
+            $table->boolean('enable_marketing')->default(false);
             $table->longText('description');
             $table->boolean('status')->default(false);
             $table->timestamps();

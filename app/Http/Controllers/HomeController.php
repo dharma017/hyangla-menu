@@ -62,8 +62,9 @@ class HomeController extends Controller
                 'slug' => $menu->slug,
                 'description' => $menu->description,
                 'status' => $menu->status,
+                'enable_marketing' => $menu->enable_marketing,
                 'image' => $menu->imageUrl([]),
-                'local_ads' => $menu->marketingImageUrl([]),
+                'marketing_image' => $menu->marketingImageUrl([]),
                 'deleted_at' => $menu->deleted_at,
             ]
         ]);   

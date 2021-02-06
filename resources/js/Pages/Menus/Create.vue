@@ -35,7 +35,7 @@
             v-model="form.status"
             :error="errors.status"
             class="pr-6 pb-8 w-full lg:w-1/2"
-            label="Status"
+            label="Publish"
           >
             <option :value="true">Active</option>
             <option :value="false">Inactive</option>
@@ -50,14 +50,23 @@
             label="Menu Image"
           />
           <file-input
-            v-model="form.local_ads"
-            :error="errors.local_ads"
+            v-model="form.marketing_image"
+            :error="errors.marketing_image"
             class="pr-6 pb-8 w-full lg:w-1/2"
             type="file"
             accept="image/*"
             label="Marketing Image"
           />
         </div>
+        <select-input
+          v-model="form.enable_marketing"
+          :error="errors.enable_marketing"
+          class="pr-6 pb-8 w-full lg:w-1/2"
+          label="Enable Marketing"
+        >
+          <option :value="true">Yes</option>
+          <option :value="false">No</option>
+        </select-input>
         <div
           class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center"
         >
@@ -109,7 +118,8 @@ export default {
         description: null,
         status: false,
         image: null,
-        local_ads: null,
+        enable_marketing: false,
+        marketing_image: null,
       },
     };
   },
@@ -119,8 +129,9 @@ export default {
       data.append("title", this.form.title || "");
       data.append("description", this.form.description || "");
       data.append("status", this.form.status ? "1" : "0");
+      data.append("enable_marketing", this.form.enable_marketing ? "1" : "0");
       data.append("image", this.form.image || "");
-      data.append("local_ads", this.form.local_ads || "");
+      data.append("marketing_image", this.form.marketing_image || "");
 
       this.$inertia.post(this.route("menus.store"), data, {
         onStart: () => (this.sending = true),
