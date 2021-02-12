@@ -77,14 +77,14 @@
               <icon name="view" class="block w-6 h-6 fill-gray-400" />
             </inertia-link> -->
             <!-- <icon name="view" class="block w-6 h-6 fill-gray-400" /> -->
-            <show-menu-modal
+            <!-- <show-menu-modal
               :show="showModal(menu.id)"
               :description="menu.description"
               @close="toggleModal(menu.id)"
-            />
-            <a class="text-sm" href="#" @click.stop="toggleModal(menu.id)">
-              <icon name="view" class="block w-6 h-6 fill-gray-400" />
-            </a>
+            /> -->
+            <!-- <a class="text-sm" href="#" @click.stop="toggleModal(menu.id)"> -->
+            <icon name="view" class="block w-6 h-6 fill-gray-400" />
+            <!-- </a> -->
           </td>
           <td class="border-t w-px">
             <a
@@ -114,7 +114,7 @@ import Pagination from "@/Shared/Pagination";
 import pickBy from "lodash/pickBy";
 import SearchFilter from "@/Shared/SearchFilter";
 import throttle from "lodash/throttle";
-import ShowMenuModal from "./ShowMenuModal.vue";
+// import ShowMenuModal from "./ShowMenuModal.vue";
 
 export default {
   metaInfo: { title: "Menus" },
@@ -123,7 +123,7 @@ export default {
     Icon,
     Pagination,
     SearchFilter,
-    ShowMenuModal,
+    // ShowMenuModal,
   },
   props: {
     menus: Object,
@@ -156,16 +156,16 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null);
     },
-    showModal: function (id) {
-      return this.activeModal === id;
-    },
-    toggleModal: function (id) {
-      if (this.activeModal !== 0) {
-        this.activeModal = 0;
-        return false;
-      }
-      this.activeModal = id;
-    },
+    // showModal: function (id) {
+    //   return this.activeModal === id;
+    // },
+    // toggleModal: function (id) {
+    //   if (this.activeModal !== 0) {
+    //     this.activeModal = 0;
+    //     return false;
+    //   }
+    //   this.activeModal = id;
+    // },
   },
 };
 </script>
