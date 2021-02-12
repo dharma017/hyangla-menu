@@ -65,8 +65,8 @@ php artisan serve
 
 You're ready to go! Visit Hyangla Menu in your browser, and login with:
 
--   **Username:** thapa.dharma017@gmail.com
--   **Password:** !!secret
+-   **Username:**
+-   **Password:**
 
 ## Running tests
 
