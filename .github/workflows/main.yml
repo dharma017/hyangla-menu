@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: "12.x"
       - run: npm install
-      - run: npm run development
+      - run: npm run production
       - name: Commit built assets
         run: |
           git config --local user.email "thapa.dharma017@gmail.com"
