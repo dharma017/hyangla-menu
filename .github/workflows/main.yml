@@ -19,7 +19,7 @@ jobs:
       - run: npm run production
       - name: Commit built assets
         run: |
-          git config --local user.email "thapa.dharma071@gmail.com"
+          git config --local user.email "thapa.dharma017@gmail.com"
           git config --local user.name "Dharma Thapa"
           git checkout -B deploy
           git add -f public/
