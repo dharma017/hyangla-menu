@@ -1,7 +1,6 @@
 <template>
   <div>
     <modal :show="show" @close="close">
-      <!-- //The elements that we wanted to be shown or used. -->
       <h3 slot="header" class="text-indigo-400 font-medium">
         Menu Description
       </h3>
@@ -9,8 +8,6 @@
     </modal>
   </div>
 </template>
-
-
 <script>
 import Modal from "@/Shared/Modal";
 
