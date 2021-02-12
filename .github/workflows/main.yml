@@ -29,6 +29,6 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: dharma
-          host: altheanp
+          host: 134.209.147.70
           password: ${{ secrets.SSH_PASSWORD }}
           script: "cd /var/www/html && ./server_deploy.sh"
