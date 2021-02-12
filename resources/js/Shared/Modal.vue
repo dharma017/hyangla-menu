@@ -7,6 +7,7 @@
     >
       <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg p-8">
         <button
+          aria-label="close"
           class="absolute top-0 right-0 text-xl text-gray-500 my-2 mx-4"
           @click.stop="close"
         >
@@ -21,6 +22,34 @@
       </div>
     </div>
   </transition>
+
+  <!-- <transition name="modal">
+    <div class="modal-mask" @click="close" v-show="show">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-header">
+            <slot name="header"> default header </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body"> default body </slot>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              &nbsp;
+              <button
+                @click.stop="close"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded float-right"
+              >
+                Close
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition> -->
 </template>
 
 <script>
@@ -49,6 +78,10 @@ export default {
 }
 
 .modal-mask {
+  /* position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
   position: fixed;
   top: 0;
   left: 0;
