@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Glide\Server;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +26,49 @@ class AppServiceProvider extends ServiceProvider
         $this->registerGlide();
         $this->registerLengthAwarePaginator();
     }
+
+    /**
+
+     * Bootstrap any application services.
+
+     *
+
+     * @return void
+
+     */
+
+    public function boot()
+
+    {
+
+        Inertia::share([
+
+            'errors' => function () {
+
+                return Session::get('errors')
+
+                    ? Session::get('errors')->getBag('default')->getMessages()
+
+                    : (object) [];
+
+            },
+
+        ]);
+
+  
+
+        Inertia::share('flash', function () {
+
+            return [
+
+                'message' => Session::get('message'),
+
+            ];
+
+        });
+
+    }
+
 
     protected function registerGlide()
     {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <modal :show="show" @close="close">
-      <!-- //The elements that we wanted to be shown or used. -->
       <img
         class="object-contain w-full"
         slot="body"
@@ -11,10 +10,8 @@
     </modal>
   </div>
 </template>
-
 <script>
 import Modal from "@/Shared/MarketingModal";
-
 export default {
   props: ["show", "image"],
 

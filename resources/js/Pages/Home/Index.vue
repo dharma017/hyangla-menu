@@ -12,10 +12,8 @@
     />
   </div>
 </template>
-
 <script>
 import OrganizationModal from "../Organizations/MarketingImageModal.vue";
-
 export default {
   metaInfo: { title: "Hyangla Menu" },
   components: {

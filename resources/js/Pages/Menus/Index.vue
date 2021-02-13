@@ -69,12 +69,15 @@
             </inertia-link>
           </td>
           <td class="border-t w-px">
-            <show-menu-modal
+            <!-- <show-menu-modal
               :show="showModal(menu.id)"
               :description="menu.description"
               @close="toggleModal(menu.id)"
             />
             <a class="text-sm" href="#" @click.stop="toggleModal(menu.id)">
+              <icon name="view" class="block w-6 h-6 fill-gray-400" />
+            </a> -->
+            <a class="text-sm" href="#" @click="openModal(menu.description)">
               <icon name="view" class="block w-6 h-6 fill-gray-400" />
             </a>
           </td>
@@ -95,6 +98,31 @@
       </table>
     </div>
     <pagination :links="menus.links" />
+    <div
+      class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400"
+      v-if="isOpen"
+    >
+      <div
+        class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+        <div class="fixed inset-0 transition-opacity">
+          <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span
+        >​
+        <div
+          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-headline"
+        >
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex">
+            <div v-html="description" class="wrap-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -106,7 +134,6 @@ import Pagination from "@/Shared/Pagination";
 import pickBy from "lodash/pickBy";
 import SearchFilter from "@/Shared/SearchFilter";
 import throttle from "lodash/throttle";
-import ShowMenuModal from "./ShowMenuModal.vue";
 
 export default {
   metaInfo: { title: "Menus" },
@@ -115,7 +142,6 @@ export default {
     Icon,
     Pagination,
     SearchFilter,
-    ShowMenuModal,
   },
   props: {
     menus: Object,
@@ -127,7 +153,9 @@ export default {
         search: this.filters.search,
         trashed: this.filters.trashed,
       },
+      isOpen: false,
       activeModal: 0,
+      description: "",
     };
   },
   watch: {
@@ -148,6 +176,14 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null);
     },
+    openModal(description) {
+      this.description = description;
+      this.isOpen = true;
+    },
+    closeModal() {
+      this.isOpen = false;
+      this.description = "";
+    },
     showModal: function (id) {
       return this.activeModal === id;
     },
@@ -161,3 +197,10 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+.wrap-body {
+  white-space: pre-wrap;
+}
+</style>

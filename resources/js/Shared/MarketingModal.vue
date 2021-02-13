@@ -47,10 +47,6 @@ export default {
 }
 
 .modal-mask {
-  /* position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
   position: fixed;
   top: 0;
   left: 0;
@@ -69,8 +65,6 @@ export default {
 
 .modal-container {
   width: 100%;
-  /* margin: 0px auto; */
-  /* padding: 30px 20px; */
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -85,15 +79,6 @@ export default {
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;
