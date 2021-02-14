@@ -1,6 +1,6 @@
 <template>
   <div>
-    <menu-modal
+    <!-- <menu-modal
       :show="showMenuModal(menu.id)"
       :image="menu.marketing_image"
       @close="toggleMenuModal(menu.id)"
@@ -9,20 +9,20 @@
       :show="showOrganizationModal(organization.id)"
       :image="organization.marketing_image"
       @close="toggleOrganizationModal(organization.id)"
-    />
+    /> -->
     <img class="object-contain w-full" v-if="menu.image" :src="menu.image" />
   </div>
 </template>
 
 <script>
-import MenuModal from "../Menus/MarketingImageModal.vue";
-import OrganizationModal from "../Organizations/MarketingImageModal.vue";
+// import MenuModal from "../Menus/MarketingImageModal.vue";
+// import OrganizationModal from "../Organizations/MarketingImageModal.vue";
 
 export default {
   metaInfo: { title: "Hyangla Menu" },
   components: {
-    MenuModal,
-    OrganizationModal,
+    // MenuModal,
+    // OrganizationModal,
   },
   props: {
     menu: Object,
