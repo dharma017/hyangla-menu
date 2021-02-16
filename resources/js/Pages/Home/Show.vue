@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import MenuModal from "../Menus/MarketingImageModal.vue";
-import OrganizationModal from "../Organizations/MarketingImageModal.vue";
+import MenuModal from "@/Pages/Menus/MarketingImageModal.vue";
+import OrganizationModal from "@/Pages/Organizations/MarketingImageModal.vue";
 
 export default {
   metaInfo: { title: "Hyangla Menu" },
