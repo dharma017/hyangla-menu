@@ -69,7 +69,7 @@ export default {
       sending: false,
       form: {
         email: "thapa.dharma017@gmail.com",
-        password: "secret",
+        password: "!!secret",
         remember: null,
       },
     };
