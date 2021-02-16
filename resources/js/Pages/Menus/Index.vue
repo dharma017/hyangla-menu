@@ -69,13 +69,13 @@
             </inertia-link>
           </td>
           <td class="border-t w-px">
-            <!-- <a
+            <a
               class="text-sm"
               href="#"
               @click.stop="openModal(menu.description)"
-            > -->
-            <icon name="view" class="block w-6 h-6 fill-gray-400" />
-            <!-- </a> -->
+            >
+              <icon name="view" class="block w-6 h-6 fill-gray-400" />
+            </a>
           </td>
           <td class="border-t w-px">
             <a
@@ -94,7 +94,7 @@
       </table>
     </div>
     <pagination :links="menus.links" />
-    <!-- <div
+    <div
       class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400"
       v-if="isOpen"
     >
@@ -127,7 +127,7 @@
           </span>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -179,20 +179,14 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null);
     },
-    // openModal(description) {
-    //   this.isOpen = true;
-    //   this.description = description;
-    // },
-    // closeModal() {
-    //   this.description = "";
-    //   this.isOpen = false;
-    // },
+    openModal(description) {
+      this.isOpen = true;
+      this.description = description;
+    },
+    closeModal() {
+      this.description = "";
+      this.isOpen = false;
+    },
   },
 };
 </script>
-
-<style scoped>
-.wrap-body {
-  white-space: pre-wrap;
-}
-</style>
