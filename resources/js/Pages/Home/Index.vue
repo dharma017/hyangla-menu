@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- <organization-modal
+    <organization-modal
       :show="showOrganizationModal(organization.id)"
       :image="organization.marketing_image"
       @close="toggleOrganizationModal(organization.id)"
-    /> -->
+    />
     <img
       class="object-contain w-full"
       v-if="organization.image"
@@ -12,11 +12,14 @@
     />
   </div>
 </template>
+
 <script>
+import OrganizationModal from "../Organizations/MarketingImageModal.vue";
+
 export default {
   metaInfo: { title: "Hyangla Menu" },
   components: {
-    // OrganizationModal,
+    OrganizationModal,
   },
   props: {
     organization: Object,
