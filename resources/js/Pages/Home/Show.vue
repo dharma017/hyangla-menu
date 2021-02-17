@@ -5,7 +5,7 @@
       v-if="isOpen"
     >
       <div
-        class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+        class="flex items-end justify-center pt-40 px-4 pb-20 text-center sm:block sm:p-0"
       >
         <div class="fixed inset-0 transition-opacity">
           <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -22,7 +22,7 @@
           <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg">
             <button
               aria-label="close"
-              class="absolute top-0 right-0 text-3xl text-gray-500 my-2 mx-4"
+              class="absolute top-0 right-0 text-3xl text-gray-900 my-2 mx-4"
               @click="closeModal()"
             >
               ×
@@ -44,7 +44,7 @@
       v-if="isOrgOpen"
     >
       <div
-        class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+        class="flex items-end justify-center pt-40 px-4 pb-20 text-center sm:block sm:p-0"
       >
         <div class="fixed inset-0 transition-opacity">
           <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -61,7 +61,7 @@
           <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg">
             <button
               aria-label="close"
-              class="absolute top-0 right-0 text-3xl text-gray-500 my-2 mx-4"
+              class="absolute top-0 right-0 text-3xl text-gray-900 my-2 mx-4"
               @click="closeOrganizationModal()"
             >
               ×
