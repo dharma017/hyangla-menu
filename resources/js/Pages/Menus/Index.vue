@@ -23,6 +23,8 @@
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
           <th class="px-6 pt-6 pb-4">Title</th>
+          <th class="px-6 pt-6 pb-4">Size</th>
+          <th class="px-6 pt-6 pb-4">Marketing Size</th>
           <th class="px-6 pt-6 pb-4">Status</th>
           <th class="px-6 pt-6 pb-4" colspan="3">Action</th>
         </tr>
@@ -47,6 +49,25 @@
                 name="trash"
                 class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2"
               />
+            </inertia-link>
+          </td>
+          <td class="border-t">
+            <inertia-link
+              class="px-6 py-4 flex items-center"
+              :href="route('menus.edit', menu.id)"
+              tabindex="-1"
+            >
+              {{ menu.image_file_size }}
+            </inertia-link>
+          </td>
+
+          <td class="border-t">
+            <inertia-link
+              class="px-6 py-4 flex items-center"
+              :href="route('menus.edit', menu.id)"
+              tabindex="-1"
+            >
+              {{ menu.marketing_image_file_size }}
             </inertia-link>
           </td>
 

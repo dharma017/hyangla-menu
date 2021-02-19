@@ -27,7 +27,9 @@ class MenusController extends Controller
                         'description' => $menu->description,
                         'status' => $menu->status,
                         'image' => $menu->imageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                        'image_file_size' => $menu->imageFileSize(),
                         'marketing_image' => $menu->marketingImageUrl(['w' => 100, 'h' => 100, 'fit' => 'crop']),
+                        'marketing_image_file_size' => $menu->marketingImageFileSize(),
                         'deleted_at' => $menu->deleted_at,
                     ];
                 }),

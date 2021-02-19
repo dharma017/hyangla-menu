@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use League\Glide\Server;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
+use App\Helpers\Common;
 
 class Menu extends Model
 {
@@ -20,6 +23,28 @@ class Menu extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = ['title', 'slug','image', 'marketing_image', 'enable_marketing', 'description', 'status'];
+
+    public function get_size($file_path)
+    {
+        return Storage::size($file_path);
+    }
+
+    public function imageFileSize()
+    {
+        if ($this->image) {
+            $bytes = Storage::size($this->image);
+            return Common::bytesToHuman($bytes);
+        }
+    }
+
+    public function marketingImageFileSize()
+    {
+        if ($this->marketing_image) {
+            $bytes = Storage::size($this->marketing_image);
+            return Common::bytesToHuman($bytes);
+        }
+    }
+
 
     public function imageUrl(array $attributes)
     {
