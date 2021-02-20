@@ -8,7 +8,7 @@
             class="bg-indigo-900 md:flex-shrink-0 md:w-56 px-6 py-4 flex items-center justify-between md:justify-center"
           >
             <inertia-link class="mt-1" href="/dashboard">
-              <logo class="fill-white" width="120" height="28" />
+              <logo width="120" height="28" />
             </inertia-link>
             <dropdown class="md:hidden" placement="bottom-end">
               <svg
