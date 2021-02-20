@@ -2,7 +2,7 @@
   <Transition name="fade">
     <div
       v-if="showing"
-      class="fixed inset-0 w-full h-screen flex items-center justify-center bg-semi-75"
+      class="fixed inset-0 w-full h-screen flex items-center justify-center bg-semi-75 px-2"
       @click.self="close"
     >
       <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg">
