@@ -77,7 +77,7 @@ class AppServiceProvider extends ServiceProvider
                 'source' => Storage::getDriver(),
                 'cache' => Storage::getDriver(),
                 'cache_folder' => '.glide-cache',
-                'driver' =>  'imagick',           // Image driver (gd or imagick)
+                // 'driver' =>  'imagick',           // Image driver (gd or imagick)
                 'base_url' => 'img',
             ]);
         });
