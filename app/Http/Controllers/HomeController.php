@@ -22,8 +22,8 @@ class HomeController extends Controller
             'organization' => [
                 'id' => $organization->id,
                 'name' => $organization->name,
-                'image' => $organization->imageUrl([]),
-                'marketing_image' => $organization->marketingImageUrl([]),
+                'image' => $organization->imageUrl(['q' => 60 ]),
+                'marketing_image' => $organization->marketingImageUrl(['q'=> 60]),
                 'enable_marketing' => $organization->enable_marketing,
                 'deleted_at' => $organization->deleted_at,
             ]
@@ -70,13 +70,13 @@ class HomeController extends Controller
                 'status' => $menu->status,
                 'enable_marketing' => $menu->enable_marketing,
                 'image' => $menu->imageUrl([]),
-                'marketing_image' => $menu->marketingImageUrl([]),
+                'marketing_image' => $menu->marketingImageUrl(['q' => 60]),
                 'deleted_at' => $menu->deleted_at,
             ],
             'organization' => [
                 'id' => $organization->id,
                 'name' => $organization->name,
-                'marketing_image' => $organization->marketingImageUrl([]),
+                'marketing_image' => $organization->marketingImageUrl(['q' => 60]),
                 'enable_marketing' => $organization->enable_marketing,
                 'deleted_at' => $organization->deleted_at,
             ]
