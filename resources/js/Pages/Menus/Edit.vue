@@ -168,7 +168,7 @@ export default {
         onStart: () => (this.sending = true),
         onFinish: () => (this.sending = false),
         onSuccess: () => {
-          if (Object.keys(this.$page.errors).length === 0) {
+          if (Object.keys(this.$page.props.errors).length === 0) {
             this.form.image = null;
             this.form.marketing_image = null;
           }
