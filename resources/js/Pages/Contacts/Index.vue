@@ -29,7 +29,7 @@
           <th class="px-6 pt-6 pb-4" colspan="2">Phone</th>
         </tr>
         <tr
-          v-for="(contact, index) in contacts.data"
+          v-for="contact in contacts.data"
           :key="contact.id"
           class="hover:bg-gray-100 focus-within:bg-gray-100"
         >
@@ -39,7 +39,7 @@
               :href="route('contacts.edit', contact.id)"
               tabindex="-1"
             >
-              {{ index + 1 }}
+              {{ contact.id }}
             </inertia-link>
           </td>
           <td class="border-t">

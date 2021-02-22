@@ -30,7 +30,7 @@
           <th class="px-6 pt-6 pb-4" colspan="3">Action</th>
         </tr>
         <tr
-          v-for="(menu, index) in menus.data"
+          v-for="menu in menus.data"
           :key="menu.id"
           class="hover:bg-gray-100 focus-within:bg-gray-100"
         >
@@ -40,7 +40,7 @@
               :href="route('menus.edit', menu.id)"
               tabindex="-1"
             >
-              {{ index + 1 }}
+              {{ menu.id }}
             </inertia-link>
           </td>
           <td class="border-t">

@@ -28,7 +28,7 @@
           <th class="px-6 pt-6 pb-4" colspan="2">Phone</th>
         </tr>
         <tr
-          v-for="(organization, index) in organizations.data"
+          v-for="organization in organizations.data"
           :key="organization.id"
           class="hover:bg-gray-100 focus-within:bg-gray-100"
         >
@@ -38,7 +38,7 @@
               :href="route('organizations.edit', organization.id)"
               tabindex="-1"
             >
-              {{ index + 1 }}
+              {{ organization.id }}
             </inertia-link>
           </td>
           <td class="border-t">
