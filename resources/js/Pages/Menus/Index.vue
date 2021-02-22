@@ -22,6 +22,7 @@
     <div class="bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
+          <th class="px-6 pt-6 pb-4">ID</th>
           <th class="px-6 pt-6 pb-4">Title</th>
           <th class="px-6 pt-6 pb-4">Size</th>
           <th class="px-6 pt-6 pb-4">Marketing Size</th>
@@ -29,10 +30,19 @@
           <th class="px-6 pt-6 pb-4" colspan="3">Action</th>
         </tr>
         <tr
-          v-for="menu in menus.data"
+          v-for="(menu, index) in menus.data"
           :key="menu.id"
           class="hover:bg-gray-100 focus-within:bg-gray-100"
         >
+          <td class="border-t">
+            <inertia-link
+              class="px-6 py-4 flex items-center"
+              :href="route('menus.edit', menu.id)"
+              tabindex="-1"
+            >
+              {{ index + 1 }}
+            </inertia-link>
+          </td>
           <td class="border-t">
             <inertia-link
               class="px-6 py-4 flex items-center focus:text-indigo-500"

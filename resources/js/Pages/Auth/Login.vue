@@ -20,6 +20,7 @@
           />
           <text-input
             v-model="form.password"
+            :error="errors.password"
             class="mt-6"
             label="Password"
             type="password"
@@ -68,8 +69,8 @@ export default {
     return {
       sending: false,
       form: {
-        email: "thapa.dharma017@gmail.com",
-        password: "!!secret",
+        email: "",
+        password: "",
         remember: null,
       },
     };
