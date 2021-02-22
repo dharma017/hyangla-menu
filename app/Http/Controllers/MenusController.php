@@ -16,7 +16,7 @@ class MenusController extends Controller
         return Inertia::render('Menus/Index', [
             'filters' => Request::all('search', 'trashed'),
             'menus' => Auth::user()->account->menus()
-                ->orderBy('title')
+                ->orderBy('id')
                 ->filter(Request::only('search', 'trashed'))
                 ->paginate()
                 ->transform(function ($menu) {
