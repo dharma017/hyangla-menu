@@ -31,4 +31,4 @@ jobs:
           username: dharma
           host: 134.209.147.70
           password: ${{ secrets.SSH_PASSWORD }}
-          script: "cd /var/www/menu.hyangla.com.np/public_html && sudo chmod -R 777 storage bootstrap/cache && ./server_deploy.sh"
+          script: "cd /var/www/menu.hyangla.com.np/public_html && ./server_deploy.sh"
