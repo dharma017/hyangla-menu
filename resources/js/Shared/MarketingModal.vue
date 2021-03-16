@@ -2,13 +2,13 @@
   <Transition name="fade">
     <div
       v-if="showing"
-      class="fixed inset-0 w-full h-screen flex items-center justify-center bg-semi-75 px-2"
+      class="fixed inset-0 w-full h-screen flex items-center justify-center bg-semi-75 px-2 pt-40"
       @click.self="close"
     >
       <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg">
         <button
           aria-label="close"
-          class="absolute top-0 right-0 px-6 bg-black pb-4 text-white hover:bg-indigo-400 text-8xl"
+          class="absolute top-0 right-0 px-4 bg-black p-3 text-white hover:bg-indigo-400 text-4xl"
           @click.prevent="close"
         >
           ×
