@@ -8,7 +8,7 @@
       <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg">
         <button
           aria-label="close"
-          class="absolute top-0 right-0 px-4 bg-black p-3 text-white hover:bg-indigo-400"
+          class="absolute top-0 right-0 px-6 bg-black pb-4 text-white hover:bg-indigo-400 text-8xl"
           @click.prevent="close"
         >
           ×
